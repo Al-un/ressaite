@@ -7,10 +7,7 @@ import {
   Model,
 } from "sequelize";
 
-export class User extends Model<
-  InferAttributes<User>,
-  InferCreationAttributes<User>
-> {
+class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: CreationOptional<number>;
   declare username: string;
   declare password: string;
@@ -20,7 +17,7 @@ export class User extends Model<
 User.init(
   {
     id: {
-      type: DataTypes.INTEGER.UNSIGNED,
+      type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -30,3 +27,5 @@ User.init(
   },
   { tableName: "users", sequelize }
 );
+
+export default User;

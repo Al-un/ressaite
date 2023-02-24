@@ -1,5 +1,5 @@
 {
-  "name": "ressaite-web",
+  "name": "@al-un/ressaite-web",
   "version": "0.0.0",
   "private": true,
   "scripts": {

@@ -19,6 +19,7 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@al-un/ressaite-core": "*",
     "@types/node": "^18.14.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/tsconfig": "^0.1.3",

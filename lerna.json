@@ -1,0 +1,5 @@
+{
+  "packages": ["ressaite-api", "ressaite-core", "ressaite-web"],
+  "useWorkspaces": true,
+  "version": "independent"
+}

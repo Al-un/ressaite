@@ -2,6 +2,7 @@
   "name": "@al-un/ressaite-web",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "// We need to define a `build` script, otherwise Vercel ignores the static files living at `dist/client/`": "",

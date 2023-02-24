@@ -12,7 +12,7 @@
 import { onMounted } from "vue";
 
 onMounted(() => {
-  console.log("LOADED!!");
+  console.log("Layout LOADED!!");
 });
 </script>
 

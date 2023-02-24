@@ -1,5 +1,5 @@
 <template>
-  <div>Hello, this is a home page</div>
+  <div>Hello, this is a copied home page</div>
 </template>
 
 <style></style>

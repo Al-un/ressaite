@@ -1,5 +1,6 @@
 import express from "express";
 import { sequelize } from "./core/db/instance";
+import { faireUnPouet } from "@al-un/ressaite-core/pouet";
 
 (async () => {
   try {
@@ -34,5 +35,6 @@ app.get("/pouet", AuthMiddleware.authenticate, function (req, res) {
 });
 
 app.listen(port, () => {
+  faireUnPouet();
   console.log("Ready to plop!");
 });

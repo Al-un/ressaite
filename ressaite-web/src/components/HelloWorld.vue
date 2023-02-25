@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { onMounted } from "vue";
+import { faireUnPouet } from "@al-un/ressaite-core/pouet";
+
 defineProps<{
-  msg: string
-}>()
+  msg: string;
+}>();
+
+onMounted(() => {
+  faireUnPouet();
+});
 </script>
 
 <template>

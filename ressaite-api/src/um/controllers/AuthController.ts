@@ -30,7 +30,7 @@ const login: RequestHandler = (req, res, next) => {
   passport.authenticate(
     "local",
     { session: false },
-    function (err, user, info) {
+    function (err: any, user: any, info: any) {
       if (err) {
         return next(err);
       }

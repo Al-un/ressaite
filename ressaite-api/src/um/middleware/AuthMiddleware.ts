@@ -28,7 +28,7 @@ const authenticate: RequestHandler = (req, res, next) => {
   passport.authenticate(
     "bearer",
     { session: false },
-    function (err, user, info) {
+    function (err: any, user: any, info: any) {
       // console.log("ERR", err);
       // console.log("user", user);
       // console.log("info", info);

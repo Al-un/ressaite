@@ -1,0 +1,40 @@
+name: Code check
+
+on:
+  push:
+    branches:
+      - develop
+      - master
+  pull_request:
+
+# Ensure only one occurrence per branch or PR is running.
+concurrency:
+  group: ci-code-check-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  # ---------- Initialise------------------------------------------------------
+  init:
+    name: Initialise
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup & Cache
+        uses: ./.github/actions/setup-and-cache
+
+  # ---------- Build ----------------------------------------------------------
+  test:
+    name: Build Ressaite Web
+    needs: init
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Load Cache
+        uses: ./.github/actions/setup-and-cache
+
+      - run: npm run vercel-build

@@ -1,0 +1,40 @@
+name: 'Setup and Cache'
+description: 'Setup a NodeJS environment and set, and restore if any, cache, given a node version. If no cache is found, then dependencies will be installed'
+
+inputs:
+  node-version:
+    description: 'Node version to use'
+    required: true
+    default: lts/hydrogen
+  lockfile:
+    description: 'Lockfile path/name to define the cache key'
+    required: true
+    default: package.lock
+
+outputs:
+  cache-hit:
+    description: 'Forward actions/cache cache-hit output'
+    value: ${{ steps.node-cache.outputs.cache-hit }}
+
+runs:
+  using: 'composite'
+  steps:
+    # https://github.com/actions/setup-node
+    - name: Use Node.js ${{ inputs.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    # https://github.com/actions/cache
+    - name: Cache Node Modules
+      id: node-cache
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: ressaite-dependencies-${{ inputs.node-version }}-${{ hashFiles(inputs.lockfile) }}
+
+
+    - name: Install dependencies (if necessary)
+      if: steps.node-cache.outputs.cache-hit != 'true'
+      run: npm install
+      shell: bash

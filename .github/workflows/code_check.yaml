@@ -38,5 +38,4 @@ jobs:
       - name: Load Cache
         uses: ./.github/actions/setup-and-cache
 
-      - run: cd ressaite-web && ls -l
-      - run: npm run vercel-build
+      - run: cd ressaite-web && ls -l && npm run vercel-build

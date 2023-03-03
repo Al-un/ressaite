@@ -5,6 +5,7 @@ on:
     branches:
       - develop
       - master
+      - chore/ci    # For testing this workflow
   pull_request:
 
 # Ensure only one occurrence per branch or PR is running.
@@ -29,6 +30,7 @@ jobs:
   test:
     name: Build Ressaite Web
     needs: init
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout

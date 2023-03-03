@@ -30,7 +30,11 @@ runs:
       id: node-cache
       uses: actions/cache@v3
       with:
-        path: node_modules
+        path: |
+          node_modules
+          ressaite-api/node_modules
+          ressaite-core/node_modules
+          ressaite-web/node_modules
         key: ressaite-dependencies-${{ inputs.node-version }}-${{ hashFiles(inputs.lockfile) }}
 
 

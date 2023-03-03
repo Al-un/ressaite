@@ -5,7 +5,6 @@ on:
     branches:
       - develop
       - master
-      - chore/ci    # For testing this workflow
   pull_request:
 
 # Ensure only one occurrence per branch or PR is running.
@@ -39,4 +38,5 @@ jobs:
       - name: Load Cache
         uses: ./.github/actions/setup-and-cache
 
+      - run: cd ./ressaite-web
       - run: npm run vercel-build

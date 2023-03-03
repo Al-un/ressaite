@@ -27,6 +27,9 @@ export class User extends Model<User> {
   @Column
   email?: string;
 
+  @Column({ field: "useless_column" })
+  uselessColumn?: string;
+
   @CreatedAt
   @Column({ allowNull: false })
   createdAt!: Date;

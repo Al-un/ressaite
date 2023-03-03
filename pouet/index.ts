@@ -22,7 +22,7 @@ import { AccessToken } from "./pouet/AccessToken";
     ],
   });
 
-  await sequelize.sync();
+  await sequelize.sync({ force: false, alter: false });
 
   const allUsers = await User.findAll();
   console.log(

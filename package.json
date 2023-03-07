@@ -1,6 +1,10 @@
 {
   "name": "@al-un/ressaite-root",
   "private": true,
+  "scripts": {
+    "build": "lerna run build",
+    "test": "lerna run test"
+  },
   "devDependencies": {
     "lerna": "^6.5.1",
     "typescript": "^4.9.5"

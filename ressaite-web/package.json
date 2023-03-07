@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "// We need to define a `build` script, otherwise Vercel ignores the static files living at `dist/client/`": "",
     "build": "npm run vercel-build",
-    "// We need to run the entire build in `vercel-build` instead of `build` so that Vercel keeps the `dist/` directory in production (Vercel discards all files generated during the `build` script.)": "",
     "vercel-build": "vite build",
     "preview": "vite preview",
     "build-only": "run-p type-check vite build",

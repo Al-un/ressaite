@@ -1,31 +1,24 @@
-import { sequelize } from "../../core/db/instance";
-import {
-  CreationOptional,
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-} from "sequelize";
+import { Column, HasMany, Model, Table } from "sequelize-typescript";
+import { AccessToken } from "./AccessToken";
 
-class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-  declare id: CreationOptional<number>;
-  declare username: string;
-  declare password: string;
-  declare email: string | null;
+export const tableName = "users";
+
+@Table({
+  tableName,
+})
+export class User extends Model {
+  @Column({ primaryKey: true, autoIncrement: true, allowNull: false })
+  id!: number;
+
+  @Column({ allowNull: false })
+  username!: string;
+
+  @Column({ allowNull: false })
+  password!: string;
+
+  @Column
+  email?: string;
+
+  @HasMany(() => AccessToken)
+  accessTokens!: AccessToken[];
 }
-
-User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    username: { type: new DataTypes.STRING(128), allowNull: false },
-    password: { type: new DataTypes.STRING(128), allowNull: false },
-    email: { type: new DataTypes.STRING(128) },
-  },
-  { tableName: "users", sequelize }
-);
-
-export default User;

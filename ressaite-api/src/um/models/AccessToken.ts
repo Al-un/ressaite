@@ -1,20 +1,35 @@
-import { sequelize } from "@/core/db/instance";
-import {
-  CreationOptional,
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  Model,
-} from "sequelize";
 import { randomUUID } from "crypto";
+import {
+  BelongsTo,
+  Column,
+  ForeignKey,
+  Model,
+  Table,
+} from "sequelize-typescript";
 
-class AccessToken extends Model<
-  InferAttributes<AccessToken>,
-  InferCreationAttributes<AccessToken>
-> {
-  declare id: CreationOptional<number>;
-  declare token: string;
-  declare expiresAt: Date;
+import { User } from "./User";
+
+export const tableName = "access_table";
+
+@Table({
+  tableName,
+})
+export class AccessToken extends Model {
+  @Column({ primaryKey: true, autoIncrement: true, allowNull: false })
+  id!: number;
+
+  @Column({ allowNull: false })
+  token!: string;
+
+  @Column({ allowNull: false })
+  @ForeignKey(() => User)
+  userId!: number;
+
+  @BelongsTo(() => User)
+  user!: User;
+
+  @Column({ allowNull: false })
+  expiresAt!: Date;
 
   init(): void {
     this.token = randomUUID();
@@ -22,18 +37,3 @@ class AccessToken extends Model<
     this.expiresAt.setDate(this.expiresAt.getDate() + 30);
   }
 }
-
-AccessToken.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    token: { type: new DataTypes.STRING(128), allowNull: false },
-    expiresAt: { type: DataTypes.DATE, allowNull: false },
-  },
-  { tableName: "access_token", sequelize }
-);
-
-export default AccessToken

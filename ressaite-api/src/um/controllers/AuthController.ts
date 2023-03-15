@@ -2,8 +2,8 @@ import { RequestHandler } from "express";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
-import AccessToken from "../models/AccessToken";
-import User from "../models/User";
+import { AccessToken } from "../models/AccessToken";
+import { User } from "../models/User";
 
 // ----------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ passport.use(
     newAccessToken.init();
     console.log("init access token", newAccessToken);
     try {
-      newAccessToken = await AccessToken.create(newAccessToken);
+      newAccessToken = await newAccessToken.save();
       console.log("created access token", newAccessToken);
       return cb(null, { user, token: newAccessToken });
     } catch (err) {
@@ -72,10 +72,12 @@ const logout: RequestHandler = async (req, res, next) => {
 const signUp: RequestHandler = async (req, res, next) => {
   // @ts-ignore
   const { username, password } = req.body;
-  const newUser = await User.create({
-    username: username,
-    password: password,
+  let newUser = new User({
+    id: 7,
+    username,
+    password,
   });
+  await newUser.save();
 
   req.login(newUser, function (err) {
     res.json({ err });

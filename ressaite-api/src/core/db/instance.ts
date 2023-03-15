@@ -14,13 +14,17 @@ const db_name = DatabaseConfig[env_name].database;
 const db_user = DatabaseConfig[env_name].username;
 const db_password = DatabaseConfig[env_name].password;
 
-const sequelize = new Sequelize(db_name, db_user, db_password, {
-  // https://sequelize.org/docs/v6/getting-started/#connecting-to-a-database
-  dialect: "postgres",
-  host: "localhost",
-  port: 5432,
-  // https://sequelize.org/docs/v6/getting-started/#logging
-  logging: console.log,
-});
+const sequelize =
+  // db_name !== undefined
+  //   ? new Sequelize(db_name, db_user, db_password, {
+  //       // https://sequelize.org/docs/v6/getting-started/#connecting-to-a-database
+  //       dialect: "postgres",
+  //       host: "localhost",
+  //       port: 5432,
+  //       // https://sequelize.org/docs/v6/getting-started/#logging
+  //       logging: console.log,
+  //     })
+  //   :
+  new Sequelize({ dialect: "sqlite", storage: ":memory:" });
 
 export { sequelize };

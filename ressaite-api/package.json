@@ -2,15 +2,27 @@
   "name": "@al-un/ressaite-api",
   "version": "0.0.1",
   "description": "",
+  "author": "Al-un",
+  "license": "ISC",
   "main": "dist/index.js",
   "scripts": {
     "start": "nodemon src/index.ts",
-    "test": "mocha -r ts-node/register -r src/mocha-root.ts --timeout 10000 --exit src/**/*.spec.ts",
-    "test:wip": "NODE_ENV=test DB_DIALECT=sqlite DB_STORAGE=:memory: npm run test",
+    "test": "npm run test:in-memory src/**/*.spec.ts",
+    "test:in-memory": "DB_DIALECT=sqlite DB_STORAGE=:memory: npm run test:run",
+    "test:run": "mocha -r ts-node/register -r src/mocha-root.ts --timeout 10000 --exit",
     "db:migrate": "sequelize-cli db:migrate"
   },
-  "author": "Al-un",
-  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "passport": "^0.6.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "^1.0.0",
+    "pg": "^8.9.0",
+    "pg-hstore": "^2.3.4",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.28.0",
+    "sequelize-typescript": "^2.1.5"
+  },
   "devDependencies": {
     "@al-un/ressaite-core": "*",
     "@types/chai": "^4.3.4",
@@ -31,16 +43,5 @@
     "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.4",
     "umzug": "^3.2.1"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "passport": "^0.6.0",
-    "passport-http-bearer": "^1.0.1",
-    "passport-local": "^1.0.0",
-    "pg": "^8.9.0",
-    "pg-hstore": "^2.3.4",
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.28.0",
-    "sequelize-typescript": "^2.1.5"
   }
 }

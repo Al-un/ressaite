@@ -30,7 +30,7 @@ if (db_dialect === "sqlite") {
   }
 }
 
-const sequelize = new Sequelize({
+export const sequelize = new Sequelize({
   // https://sequelize.org/docs/v6/getting-started/#connecting-to-a-database
   dialect: db_dialect,
   username: db_username,
@@ -41,9 +41,13 @@ const sequelize = new Sequelize({
   // https://sequelize.org/docs/v6/getting-started/#logging
   logging: console.log,
   // Loading models for sync
-  models:[
-    path.join(__dirname, "../../um/models/**/*.*"),
-  ]
+  models: [path.join(__dirname, "../../um/models/**/*.*")],
 });
 
-export { sequelize };
+export const initSequelize = async (sequelize: Sequelize) => {
+  await sequelize.authenticate();
+  console.log("Database check: connection OK");
+
+  await sequelize.sync({ force: false, alter: false });
+  console.log("Database check: models sync OK");
+};

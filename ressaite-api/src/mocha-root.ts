@@ -1,6 +1,6 @@
 import { RootHookObject } from "mocha";
 
-import { sequelize } from "@/core/db/instance";
+import { initSequelize, sequelize } from "@/core/db/instance";
 import { umzugMigrator, umzugSeeder } from "@/umzug";
 
 export const mochaHooks: RootHookObject = {
@@ -16,11 +16,7 @@ export const mochaHooks: RootHookObject = {
     console.log("Executed seeds:", seeds);
 
     try {
-      await sequelize.authenticate();
-      console.log("Database check: connection OK");
-
-      await sequelize.sync({ force: false, alter: false });
-      console.log("Database check: models sync OK");
+      await initSequelize(sequelize);
     } catch (err) {
       console.error("Database check: connection error", err);
     }

@@ -108,6 +108,9 @@
     "node_modules",
     "src/core/db/config.js" // Sequelize CLI configuration
   ],
+  "include": [
+    "src"
+  ],
 
   // https://stackoverflow.com/a/73935402/4906586
   "ts-node": {

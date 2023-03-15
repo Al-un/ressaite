@@ -19,4 +19,26 @@ describe("Dummy test", () => {
       .set("Accept", "application/json");
     console.log(res.body);
   });
+
+  it("does nothing much", async () => {
+    assert.equal(1, 1);
+    let res;
+    // res = await request(app)
+    //   .post("/login")
+    //   .send({ username: "pouet", password: "pouet" })
+    //   .set("Accept", "application/json");
+    // console.log(res.body);
+
+    res = await request(app)
+      .post("/signup")
+      .send({ username: "blah", password: "plop" })
+      .set("Accept", "application/json");
+    console.log(res.body);
+
+        res = await request(app)
+      .post("/login")
+      .send({ username: "blah", password: "pouetpouet" })
+      .set("Accept", "application/json");
+    console.log(res.body);
+  });
 });

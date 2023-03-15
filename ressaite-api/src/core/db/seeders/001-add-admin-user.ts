@@ -5,8 +5,10 @@ export const up: Seeder = async ({ context: sequelize }) => {
   return sequelize.getQueryInterface().bulkInsert(tableName, [
     {
       username: "admin",
-      password: "plop",
+      // "pouetpouet"
+      password: "$2b$10$EuERg7PrpZtUDVr5MKXYYOzuJQUWiOFuY7C4FtKiP3rwwbMIBtaVu",
       email: "ressaite@al-un.fr",
+      salt: "$2b$10$EuERg7PrpZtUDVr5MKXYYO",
       createdAt: new Date(),
       updatedAt: new Date(),
     },

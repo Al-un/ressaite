@@ -23,6 +23,10 @@ export const up: Migration = async ({ context: sequelize }) => {
       allowNull: false,
       type: DataTypes.STRING,
     },
+    salt: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,

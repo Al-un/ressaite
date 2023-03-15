@@ -71,15 +71,21 @@ const signUp: RequestHandler = async (req, res, next) => {
   // @ts-ignore
   const { username, password } = req.body;
   let newUser = new User({
-    id: 7,
     username,
     password,
   });
-  await newUser.save();
+  try {
+    console.log(`Creating user`, newUser);
+    await newUser.save();
+    res.status(201).send({ status: "Created" });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 
-  req.login(newUser, function (err) {
-    res.json({ err });
-  });
+  // req.login(newUser, function (err) {
+  //   res.json({ err });
+  // });
 
   // var salt = crypto.randomBytes(16);
   // crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {

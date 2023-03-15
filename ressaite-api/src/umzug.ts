@@ -1,4 +1,5 @@
 import { Umzug, SequelizeStorage } from "umzug";
+
 import { sequelize } from "@/core/db/instance";
 
 // https://github.com/sequelize/umzug/blob/main/examples/1.sequelize-typescript/migrate.js

@@ -10,9 +10,9 @@ import User from "../models/User";
 passport.use(
   // @ts-ignore
   new LocalStrategy(async function verify(username, password, cb) {
-    // console.log(`Checking ${username} and ${password}`);
+    console.log(`Checking ${username} and ${password}`);
     const user = await User.findOne({ where: { username, password } });
-    // console.log(`Found`, user?.dataValues);
+    console.log(`Found`, user?.dataValues);
     if (!user) {
       return cb(null, false, { message: "Incorrect username or password" });
     }

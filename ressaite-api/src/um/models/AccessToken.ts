@@ -9,7 +9,7 @@ import {
 
 import { User } from "./User";
 
-export const tableName = "access_table";
+export const tableName = "access_token";
 
 @Table({
   tableName,
@@ -31,8 +31,9 @@ export class AccessToken extends Model {
   @Column({ allowNull: false })
   expiresAt!: Date;
 
-  init(): void {
+  init(user: User): void {
     this.token = randomUUID();
+    this.userId = user.id;
     this.expiresAt = new Date();
     this.expiresAt.setDate(this.expiresAt.getDate() + 30);
   }

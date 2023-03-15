@@ -19,15 +19,13 @@ passport.use(
 
     console.log("creating access token");
     let newAccessToken = new AccessToken();
-    console.log("creating access token", newAccessToken);
-    newAccessToken.init();
-    console.log("init access token", newAccessToken);
+    newAccessToken.init(user);
+
     try {
       newAccessToken = await newAccessToken.save();
       console.log("created access token", newAccessToken);
       return cb(null, { user, token: newAccessToken });
     } catch (err) {
-      console.log("ERR", err);
       return cb(err, false, { message: `An error happened: ${err}` });
     }
   })

@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import passport from "passport";
 import { Strategy as BearerStrategy } from "passport-http-bearer";
 
-import AccessToken from "../models/AccessToken";
+import { AccessToken } from "../models/AccessToken";
 
 // ----------------------------------------------------------------------------
 

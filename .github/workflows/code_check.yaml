@@ -29,6 +29,7 @@ jobs:
   test:
     name: Build Ressaite Web
     needs: init
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -37,4 +38,4 @@ jobs:
       - name: Load Cache
         uses: ./.github/actions/setup-and-cache
 
-      - run: npm run vercel-build
+      - run: cd ressaite-web && npm run vercel-build

@@ -5,13 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "// We need to define a `build` script, otherwise Vercel ignores the static files living at `dist/client/`": "",
-    "build": "echo 'I will never be called because the `vercel-build` script supersedes me'",
-    "// We need to run the entire build in `vercel-build` instead of `build` so that Vercel keeps the `dist/` directory in production (Vercel discards all files generated during the `build` script.)": "",
+    "build": "npm run vercel-build",
     "vercel-build": "vite build",
     "preview": "vite preview",
     "build-only": "run-p type-check vite build",
-    "type-check": "vue-tsc --noEmit"
+    "type-check": "vue-tsc --noEmit",
+    "test": "echo \"ressaite-web test is TODO\""
   },
   "dependencies": {
     "pinia": "^2.0.32",

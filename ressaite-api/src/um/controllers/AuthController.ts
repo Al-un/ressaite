@@ -2,26 +2,32 @@ import { RequestHandler } from "express";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 
-import AccessToken from "../models/AccessToken";
-import User from "../models/User";
+import { AccessToken } from "../models/AccessToken";
+import { User } from "../models/User";
 
 // ----------------------------------------------------------------------------
 
 passport.use(
   // @ts-ignore
   new LocalStrategy(async function verify(username, password, cb) {
-    // console.log(`Checking ${username} and ${password}`);
+    console.log(`Checking ${username} and ${password}`);
     const user = await User.findOne({ where: { username, password } });
-    // console.log(`Found`, user?.dataValues);
+    console.log(`Found`, user?.dataValues);
     if (!user) {
       return cb(null, false, { message: "Incorrect username or password" });
     }
 
+    console.log("creating access token");
     let newAccessToken = new AccessToken();
-    newAccessToken.init();
-    newAccessToken = await AccessToken.create(newAccessToken);
+    newAccessToken.init(user);
 
-    return cb(null, { user, token: newAccessToken });
+    try {
+      newAccessToken = await newAccessToken.save();
+      console.log("created access token", newAccessToken);
+      return cb(null, { user, token: newAccessToken });
+    } catch (err) {
+      return cb(err, false, { message: `An error happened: ${err}` });
+    }
   })
 );
 
@@ -64,14 +70,22 @@ const logout: RequestHandler = async (req, res, next) => {
 const signUp: RequestHandler = async (req, res, next) => {
   // @ts-ignore
   const { username, password } = req.body;
-  const newUser = await User.create({
-    username: username,
-    password: password,
+  let newUser = new User({
+    username,
+    password,
   });
+  try {
+    console.log(`Creating user`, newUser);
+    await newUser.save();
+    res.status(201).send({ status: "Created" });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 
-  req.login(newUser, function (err) {
-    res.json({ err });
-  });
+  // req.login(newUser, function (err) {
+  //   res.json({ err });
+  // });
 
   // var salt = crypto.randomBytes(16);
   // crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', function(err, hashedPassword) {

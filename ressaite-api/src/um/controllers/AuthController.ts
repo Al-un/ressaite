@@ -17,11 +17,19 @@ passport.use(
       return cb(null, false, { message: "Incorrect username or password" });
     }
 
+    console.log("creating access token");
     let newAccessToken = new AccessToken();
+    console.log("creating access token", newAccessToken);
     newAccessToken.init();
-    newAccessToken = await AccessToken.create(newAccessToken);
-
-    return cb(null, { user, token: newAccessToken });
+    console.log("init access token", newAccessToken);
+    try {
+      newAccessToken = await AccessToken.create(newAccessToken);
+      console.log("created access token", newAccessToken);
+      return cb(null, { user, token: newAccessToken });
+    } catch (err) {
+      console.log("ERR", err);
+      return cb(err, false, { message: `An error happened: ${err}` });
+    }
   })
 );
 
